@@ -70,7 +70,6 @@ const createAttendance = async (req, res) => {
 
 const getAttendances = async (req, res) => {
   try {
-    // Menangkap query parameter untuk fitur bonus
     let { 
       page = 1, 
       limit = 10, 

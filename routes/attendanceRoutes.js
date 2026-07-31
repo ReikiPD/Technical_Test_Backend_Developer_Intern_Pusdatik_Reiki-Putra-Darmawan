@@ -65,14 +65,26 @@ router.use(authenticateJWT);
  *           schema:
  *             type: object
  *             required:
- *               - employee_id
+ *               - employee_name
+ *               - attendance_date
  *               - status
  *             properties:
- *               employee_id:
- *                 type: integer
+ *               employee_name:
+ *                 type: string
+ *               attendance_date:
+ *                 type: string
+ *                 format: date
+ *               check_in:
+ *                 type: string
+ *                 format: time
+ *               check_out:
+ *                 type: string
+ *                 format: time
  *               status:
  *                 type: string
  *                 enum: [Present, Sick, Leave, Absent]
+ *               notes:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Data presensi berhasil dibuat
@@ -183,13 +195,22 @@ router.get('/attendances/:id', attendanceController.getAttendanceById);
  *           schema:
  *             type: object
  *             properties:
+ *               employee_name:
+ *                 type: string
+ *               attendance_date:
+ *                 type: string
+ *                 format: date
+ *               check_in:
+ *                 type: string
+ *                 format: time
+ *               check_out:
+ *                 type: string
+ *                 format: time
  *               status:
  *                 type: string
  *                 enum: [Present, Sick, Leave, Absent]
- *               clock_out:
+ *               notes:
  *                 type: string
- *                 format: time
- *                 example: "17:00:00"
  *     responses:
  *       200:
  *         description: Data berhasil diperbarui

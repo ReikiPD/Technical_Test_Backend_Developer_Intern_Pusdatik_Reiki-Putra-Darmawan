@@ -12,7 +12,7 @@ const login = (req, res) => {
     };
 
     // Generate token dengan masa berlaku 1 hari
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30m' });
 
     return res.status(200).json({
       success: true,

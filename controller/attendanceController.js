@@ -68,8 +68,6 @@ const createAttendance = async (req, res) => {
   }
 };
 
-// ... (kode createAttendance yang sudah ada sebelumnya) ...
-
 const getAttendances = async (req, res) => {
   try {
     // Menangkap query parameter untuk fitur bonus
@@ -88,14 +86,14 @@ const getAttendances = async (req, res) => {
     limit = parseInt(limit);
     const offset = (page - 1) * limit;
 
-    // Variabel untuk menyusun query SQL dinamis
-    let whereClauses = [];
+// Variabel untuk menyusun query SQL dinamis
+    let whereClauses = ['deleted_at IS NULL']; // <--- Tambahkan ini sebagai default
     let values = [];
     let valueIndex = 1;
 
     // 1. Fitur Bonus: Search berdasarkan nama karyawan
     if (search) {
-      whereClauses.push(`employee_name ILIKE $${valueIndex}`); // ILIKE agar case-insensitive
+      whereClauses.push(`employee_name ILIKE $${valueIndex}`);
       values.push(`%${search}%`);
       valueIndex++;
     }
@@ -167,7 +165,8 @@ const getAttendanceById = async (req, res) => {
   try {
     const { id } = req.params;
     
-    const query = `SELECT * FROM attendances WHERE id = $1`;
+    // Pastikan hanya mengambil data yang belum dihapus
+    const query = `SELECT * FROM attendances WHERE id = $1 AND deleted_at IS NULL`;
     const result = await pool.query(query, [id]);
 
     if (result.rows.length === 0) {
@@ -224,7 +223,8 @@ const updateAttendance = async (req, res) => {
     }
 
     // 2. Cek eksistensi data berdasarkan ID
-    const checkQuery = `SELECT * FROM attendances WHERE id = $1`;
+    // Cek eksistensi data berdasarkan ID dan pastikan belum dihapus
+    const checkQuery = `SELECT * FROM attendances WHERE id = $1 AND deleted_at IS NULL`;
     const checkResult = await pool.query(checkQuery, [id]);
     
     if (checkResult.rows.length === 0) {
@@ -270,8 +270,8 @@ const deleteAttendance = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Cek eksistensi data
-    const checkQuery = `SELECT * FROM attendances WHERE id = $1`;
+    // Cek eksistensi data yang BELUM dihapus
+    const checkQuery = `SELECT * FROM attendances WHERE id = $1 AND deleted_at IS NULL`;
     const checkResult = await pool.query(checkQuery, [id]);
     
     if (checkResult.rows.length === 0) {
@@ -281,8 +281,8 @@ const deleteAttendance = async (req, res) => {
       });
     }
 
-    // Hapus data
-    const deleteQuery = `DELETE FROM attendances WHERE id = $1`;
+    // Lakukan Soft Delete (Update kolom deleted_at)
+    const deleteQuery = `UPDATE attendances SET deleted_at = CURRENT_TIMESTAMP WHERE id = $1`;
     await pool.query(deleteQuery, [id]);
 
     return res.status(200).json({

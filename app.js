@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 const pool = require('./config/db');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 
+app.use(morgan('dev'));
 app.use(express.json());
 
 pool.query('SELECT NOW()')

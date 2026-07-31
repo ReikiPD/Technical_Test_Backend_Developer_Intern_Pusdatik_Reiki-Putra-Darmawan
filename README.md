@@ -100,6 +100,16 @@ DB_PORT=5432
 JWT_SECRET=secret_key_anda
 ```
 
+- Mengganti isi scripts di file pacakge.json menjadi berikut:
+```
+  "scripts": {
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js",
+    "db:migrate": "node src/config/initDb.js"
+  },
+```
+- Jalankan `npm run dev` di terminal dengan letak terminal berada setara dengan file app.js
+
 ## 7. Dokumentasi API
 
 Aplikasi ini dilengkapi dengan antarmuka dokumentasi API interaktif. Setelah server berjalan, Anda dapat melihat spesifikasi OpenAPI dan menguji seluruh endpoint langsung melalui browser.

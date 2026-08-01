@@ -102,17 +102,7 @@ ADMIN_USERNAME=username_anda
 ADMIN_PASSWORD=password_anda
 ```
 
-- Mengganti isi scripts di file pacakge.json menjadi berikut:
-
-```
-  "scripts": {
-    "dev": "nodemon src/app.js",
-    "start": "node src/app.js",
-    "migrate": "node config/initDb.js"
-  },
-```
-
-- Jalankan `npm run dev` di terminal dengan letak terminal berada setara dengan file app.js
+- Jalankan `npm run dev` di terminal dengan letak direktori terminal berada setara dengan file app.js
 
 ## 7. Dokumentasi API
 

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/app.js",
     "start": "node src/app.js",
-    "db:migrate": "node src/config/initDb.js"
+    "migrate": "node config/initDb.js"
   },
   "author": "",
   "license": "ISC",

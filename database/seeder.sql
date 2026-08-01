@@ -2,7 +2,7 @@
 TRUNCATE TABLE attendances RESTART IDENTITY CASCADE;
 
 -- Insert data dummy presensi (minimal 10 data)
-INSERT INTO attendances (employee_name, attendance_date, status, check_in_time, check_out_time) VALUES
+INSERT INTO attendances (employee_name, attendance_date, status, check_in, check_out) VALUES
 ('Budi Santoso', CURRENT_DATE, 'Present', '08:00:00', '17:00:00'),
 ('Siti Aminah', CURRENT_DATE, 'Present', '07:45:00', '16:50:00'),
 ('Andi Wijaya', CURRENT_DATE, 'Sick', NULL, NULL),

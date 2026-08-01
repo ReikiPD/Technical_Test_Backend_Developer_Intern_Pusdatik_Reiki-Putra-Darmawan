@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const attendanceController = require('../controller/attendanceController');
-const authController = require('../controller/authController');
-const authenticateJWT = require('../middleware/auth');
+const attendanceController = require("../controller/attendanceController");
+const authController = require("../controller/authController");
+const authenticateJWT = require("../middleware/auth");
 
 /**
  * @swagger
@@ -44,7 +44,7 @@ const authenticateJWT = require('../middleware/auth');
  *       401:
  *         description: Kredensial tidak valid
  */
-router.post('/login', authController.login);
+router.post("/login", authController.login);
 
 // Middleware proteksi JWT untuk seluruh route di bawahnya
 router.use(authenticateJWT);
@@ -93,7 +93,7 @@ router.use(authenticateJWT);
  *       401:
  *         description: Unauthorized (Token tidak valid/kedaluwarsa)
  */
-router.post('/attendances', attendanceController.createAttendance);
+router.post("/attendances", attendanceController.createAttendance);
 
 /**
  * @swagger
@@ -145,7 +145,7 @@ router.post('/attendances', attendanceController.createAttendance);
  *       401:
  *         description: Unauthorized (Token tidak valid/kedaluwarsa)
  */
-router.get('/attendances', attendanceController.getAttendances);
+router.get("/attendances", attendanceController.getAttendances);
 
 /**
  * @swagger
@@ -170,7 +170,7 @@ router.get('/attendances', attendanceController.getAttendances);
  *       401:
  *         description: Unauthorized (Token tidak valid/kedaluwarsa)
  */
-router.get('/attendances/:id', attendanceController.getAttendanceById);
+router.get("/attendances/:id", attendanceController.getAttendanceById);
 
 /**
  * @swagger
@@ -219,7 +219,7 @@ router.get('/attendances/:id', attendanceController.getAttendanceById);
  *       401:
  *         description: Unauthorized (Token tidak valid/kedaluwarsa)
  */
-router.put('/attendances/:id', attendanceController.updateAttendance);
+router.put("/attendances/:id", attendanceController.updateAttendance);
 
 /**
  * @swagger
@@ -245,6 +245,6 @@ router.put('/attendances/:id', attendanceController.updateAttendance);
  *       401:
  *         description: Unauthorized (Token tidak valid/kedaluwarsa)
  */
-router.delete('/attendances/:id', attendanceController.deleteAttendance);
+router.delete("/attendances/:id", attendanceController.deleteAttendance);
 
 module.exports = router;

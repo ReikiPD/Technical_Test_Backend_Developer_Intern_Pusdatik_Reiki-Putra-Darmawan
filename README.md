@@ -53,6 +53,7 @@ pusdatik-attendance/
 - Keamanan: Rute API dilindungi menggunakan token JWT yang harus dikirimkan melalui header `Authorization: Bearer <token>`.
 
 ## 4. Pemilihan Tipe Data
+
 - `id` menggunakan `SERIAL` (atau `INT GENERATED ALWAYS AS IDENTITY`) sebagai Primary Key agar mendapatkan angka urut (auto-increment) unik secara otomatis.
 
 - `employee_name` menggunakan `VARCHAR(100)` dengan batas panjang karakter yang wajar untuk efisiensi indeks dan memadai untuk nama lengkap.
@@ -70,13 +71,12 @@ pusdatik-attendance/
 - `deleted_at` menggunakan `TIMESTAMP` (atau `TIMESTAMP WITH TIME ZONE`) untuk merekam dengan akurat kapan sebuah baris data dihapus (mendukung fitur soft delete).
 
 ## 5. Mencegah Data Presensi Ganda
-Aturan bisnis mewajibkan "1 kehadiran per pegawai per hari". Aplikasi ini mencegah duplikasi melalui dua lapis keamanan (two-layer validation):
 
 - Level Aplikasi (Node.js): Sebelum mengeksekusi query `INSERT`, controller akan melakukan pengecekan `SELECT` untuk memastikan tidak ada data atas nama karyawan tersebut pada tanggal yang diinputkan.
 
 - Level Database (PostgreSQL): Diimplementasikan mekanisme Partial Unique Index. Script DDL mengeksekusi:
-`CREATE UNIQUE INDEX unique_attendance_per_day ON attendances (employee_name, attendance_date) WHERE deleted_at IS NULL;`
-Dengan cara ini, database secara absolut akan menolak insert data ganda pada hari yang sama, namun tetap mengizinkan pembuatan data baru jika presensi sebelumnya telah di-soft-delete (karena data yang di-soft-delete tidak dihitung oleh indeks unik tersebut).
+  `CREATE UNIQUE INDEX unique_attendance_per_day ON attendances (employee_name, attendance_date) WHERE deleted_at IS NULL;`
+  Dengan cara ini, database secara absolut akan menolak insert data ganda pada hari yang sama, namun tetap mengizinkan pembuatan data baru jika presensi sebelumnya telah di-soft-delete (karena data yang di-soft-delete tidak dihitung oleh indeks unik tersebut).
 
 ## 6. Cara menajalankan Aplikasi
 
@@ -98,16 +98,20 @@ DB_HOST=localhost
 DB_NAME=pusdatik_attendance
 DB_PORT=5432
 JWT_SECRET=secret_key_anda
+ADMIN_USERNAME=username_anda
+ADMIN_PASSWORD=password_anda
 ```
 
 - Mengganti isi scripts di file pacakge.json menjadi berikut:
+
 ```
   "scripts": {
     "dev": "nodemon src/app.js",
     "start": "node src/app.js",
-    "db:migrate": "node src/config/initDb.js"
+    "migrate": "node config/initDb.js"
   },
 ```
+
 - Jalankan `npm run dev` di terminal dengan letak terminal berada setara dengan file app.js
 
 ## 7. Dokumentasi API

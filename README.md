@@ -1,6 +1,6 @@
 # Pusdatik Attendance REST API
 
-API ini dibangun sebagai pemenuhan tugas Technical Test Backend Developer Intern di Pusdatik Kemnaker. Aplikasi ini dirancang untuk mencatat data kehadiran pegawai, mendukung proses CRUD dengan aturan bisnis yang ketat, serta mengimplementasikan berbagai fitur tambahan (_bonus features_) untuk memastikan keandalan dan keamanan sistem.
+API ini dibangun sebagai pemenuhan tugas Technical Test Backend Developer Intern di Pusdatik Kemnaker. Aplikasi ini dirancang untuk mencatat data kehadiran pegawai, mendukung proses CRUD dengan aturan bisnis yang ketat, serta mengimplementasikan berbagai fitur tambahan untuk memastikan keandalan dan keamanan sistem.
 
 ---
 

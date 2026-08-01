@@ -82,11 +82,11 @@ pusdatik-attendance/
 
 - Lakukan clone repositori ini ke mesin lokal Anda.
 
-- Buka terminal pada direktori root proyek dan jalankan perintah npm install untuk mengunduh seluruh dependencies.
+- Buka terminal pada direktori root proyek dan jalankan perintah `npm install` untuk mengunduh seluruh dependencies.
 
 - Buat database baru di PostgreSQL lokal Anda (misal: pusdatik_attendance).
 
-- Eksekusi script SQL yang terdapat di dalam folder database/schema.sql terlebih dahulu, disusul dengan database/seeder.sql ke dalam database tersebut.
+- Eksekusi script SQL yang terdapat di dalam folder database/schema.sql terlebih dahulu, disusul dengan database/seeder.sql ke dalam database tersebut. Eksekusi script yaitu dengan menjalankan `npm run migrate` perintah pada direktori root proyek.
 
 - Buat file bernama .env di root folder dan isi dengan konfigurasi berikut:
 
@@ -102,7 +102,7 @@ ADMIN_USERNAME=username_anda
 ADMIN_PASSWORD=password_anda
 ```
 
-- Jalankan `npm run dev` di terminal dengan letak direktori terminal berada setara dengan file app.js
+- Jalankan `npm run dev` di terminal dengan letak direktori terminal berada setara dengan file app.
 
 ## 7. Dokumentasi API
 
@@ -113,4 +113,3 @@ Aplikasi ini dilengkapi dengan antarmuka dokumentasi API interaktif. Setelah ser
 ## 8. Kendala yang ditemui dan Solusinya
 
 - Pemblokiran Akses UI Swagger oleh Middleware Auth: Halaman dokumentasi /api-docs mengembalikan pesan Access Denied (No token provided) karena ikut terproteksi oleh middleware validasi JWT global di aplikasi. Solusinya yaitu dengan memperbaiki urutan mounting route di app.js. Rute untuk UI Swagger dipindahkan ke baris atas, sebelum pemanggilan router aplikasi utama, sehingga dokumentasi tetap bersifat publik (public access) sementara rute API lainnya tetap aman terlindungi JWT.
-- Pemblokiran Akses UI Swagger oleh Middleware Auth: Halaman dokumentasi /api-docs mengembalikan pesan Access Denied (No token provided) karena ikut terproteksi oleh middleware validasi JWT global di aplikasi. Solusinya yaitu memperbaiki urutan mounting route di app.js. Rute untuk UI Swagger dipindahkan ke baris atas, sebelum pemanggilan router aplikasi utama, sehingga dokumentasi tetap bersifat publik (public access) sementara rute API lainnya tetap aman terlindungi JWT.
